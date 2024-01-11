@@ -1,5 +1,5 @@
 // External packages
-const inquirer = require("inquirer");
+const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require('util');
 // const fs = require('./node_modules/graceful-fs/graceful-fs');
@@ -14,7 +14,6 @@ class Svg{
         this.shapeElement = ''
     }
     render(){
-
         return `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300" height="200">${this.shapeElement}${this.textElement}</svg>`
     }
     setTextElement(text,color){
@@ -27,28 +26,27 @@ class Svg{
     
 };
 
-
 // Array of questions for user input
 const questions = [
         {
             type: 'input',
-            name: 'letters',
+            name: 'text',
             message: 'Letters: Enter up to 3 characters:',
         },
         {
             type: 'input',
-            name: 'letter-color',
+            name: 'textColor',
             message: 'Choose a color keyword or a hexadecimal number for your letters:',
         },
         {
             type: 'list',
             message: 'Choose your background shape:',
-            name: 'shape',
+            name: 'bgShape',
             choices: ['Circle', 'Square', 'Triangle'],     
         },
         {
             type: 'input',
-            name: 'shape-color',
+            name: 'bgColor',
             message: 'Choose a color keyword or a hexadecimal number for your background shape:',
         },       
     ];
@@ -77,52 +75,52 @@ async function init() {
     const userResponses = await inquirer.prompt(questions);
 
 	//userResponse letters
-	var userLetters = "";
-	if (userResponses.letters.length > 0 && userResponses.letters.length < 4) {
+	var userText = "";
+	if (userResponses.text.length > 0 && userResponses.text.length < 4) {
 		// 1-3 chars, valid
-		userLetters = userResponses.letters;
+		userText = userResponses.text;
 	} else {
 		// 0 or 4+ chars, invalid
 		console.log("Invalid user text field detected! Please enter 1-3 Characters, no more and no less");
         return;
 	}
-	console.log("User text: [" + userLetters + "]");
+	console.log("User text: [" + userText + "]");
 
-	//userLetter color
-	userLetterColor = userResponses.letter-color;
-	console.log("User letter color: [" + userLetterColor + "]");
+	//user text color
+	userTextColor = userResponses.textColor;
+	console.log("User letter color: [" + userTextColor + "]");
 
-	//userShape
-	userShapeType = userResponses.shape;
-	console.log("User entered shape = [" + userShapeType + "]");
+	//user chosen shape
+	userBgShape = userResponses.bgShape;
+	console.log("User entered shape = [" + userBgShape + "]");
 
     //userShapeColor
-    userShapeColor = userResponses.shape-color;
-	console.log("User shape color: [" + userShapeColor + "]");
+    userBgColor = userResponses.bgColor;
+	console.log("User shape color: [" + userBgColor + "]");
 
 	
 	//user shape
 	let userShapeType;
-	if (userShapeType === "Square" || userShapeType === "square") {
+	if (userBgShape === "Square" || userBgShape === "square") {
 		userShapeType = new Square();
 		console.log("User selected Square shape");
 	}
-	else if (userShapeType === "Circle" || userShapeType === "circle") {
+	else if (userBgShape === "Circle" || userBgShape === "circle") {
 		userShapeType = new Circle();
 		console.log("User selected Circle shape");
 	}
-	else if (userShapeType === "Triangle" || userShapeType === "triangle") {
+	else if (userBgShape === "Triangle" || userBgShape === "triangle") {
 		userShapeType = new Triangle();
 		console.log("User selected Triangle shape");
 	}
 	else {
 		console.log("Invalid shape!");
 	}
-	userShapeType.setColor(userShapeColor);
+	userShapeType.setColor(userBgColor);
 
 	// Create a new Svg instance and add the shape and text elements to it
 	var svg = new Svg();
-	svg.setTextElement(userLetters, userLetterColor);
+	svg.setTextElement(userText, userTextColor);
 	svg.setShapeElement(userShapeType);
 	svgString = svg.render();
 	
