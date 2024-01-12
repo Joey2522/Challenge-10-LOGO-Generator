@@ -1,8 +1,6 @@
 // External packages
 const inquirer = require('inquirer');
-const fs = require('fs');
-const util = require('util');
-// const fs = require('./node_modules/graceful-fs/graceful-fs');
+const fs = require('./node_modules/graceful-fs/graceful-fs');
 
 // Internal
 const {Circle, Square, Triangle} = require('./lib/shapes');
@@ -16,15 +14,15 @@ class Svg{
     render(){
         return `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300" height="200">${this.shapeElement}${this.textElement}</svg>`
     }
-    setTextElement(text,color){
+    setTextElement(text, color){
         this.textElement = `<text x="150" y="125" font-size="60" text-anchor="middle" fill="${color}">${text}</text>`
     }
-    setShapeElement(shape){
-        this.shapeElement = shape.render()
+    setShapeElement(bgColor){
+        this.shapeElement = bgColor.render()
 
     }
     
-};
+}
 
 // Array of questions for user input
 const questions = [
@@ -63,11 +61,9 @@ function writeToFile(fileName, data) {
     });
 };
 
-const writeFileAsync = util.promisify(writeToFile);
-
 //Function to initialize app
 async function init() {
-    console.log("Starting init");
+    console.log("Choose your logo specifics.");
 	var svgString = "";
 	var svgFile = "logo.svg";
 
