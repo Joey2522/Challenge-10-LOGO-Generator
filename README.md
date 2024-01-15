@@ -70,7 +70,7 @@ Build a Node.js command-line application that takes in user inputs to generates 
 [Solution URL Link:](https://github.com/Joey2522/Challenge-10-LOGO-Generator/tree/main)
 
 ## YouTube Walkthrough Video:
-[Click Here to Watch](youTube link here)
+[Click Here to Watch](https://youtu.be/2zRkxewHYi4)
 
 ## Screenshots:
 ### Figure 1. Command line application
